@@ -1,3 +1,6 @@
+import * as config from 'config';
+import {map} from "rxjs/operators";
+
 export function now() {
     return Math.ceil(new Date().getTime() / 1000);
 }
@@ -91,4 +94,32 @@ export function range(start = 0, length = 1, step = 1): number[] {
     }
 
     return result;
+}
+
+export function getApiUrl(key: string, isExt?: boolean) {
+    const configs = config.get<Map<string, any>>('api');
+    if (!isExt) {
+        isExt = process.env.API_EXT === 'true';
+    }
+    const route = configs.get(key);
+    if (!route) {
+        return false;
+    }
+    const compatible = process.env.API_COMPATIBLE === 'true';
+    if (Array.isArray(route)) {
+        if (compatible) {
+            return configs.get('compatibleURL') + encodeURI(route['api']);
+        }
+        return isExt ? route['ext'] : route['api'];
+    }
+    let url: string = '';
+    if (isExt) {
+        url = configs.get('prefix')['ext'] + route;
+    } else {
+        url = config.get('prefix')['api'] + route;
+    }
+    if (compatible) {
+        url = config.get('compatibleURL') + encodeURI(config['prefix']['api'] + route);
+    }
+    return url;
 }
