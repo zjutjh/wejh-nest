@@ -13,7 +13,7 @@ export class RedisService {
     const redisConfig: {
       host: string;
       port: number;
-    } = config.get('redis')
+    } = config.get('redis');
     this.config = {
       port: redisConfig.port, // Redis port
       host: redisConfig.host, // Redis host
