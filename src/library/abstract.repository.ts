@@ -1,12 +1,14 @@
-import {DeepPartial, Repository as TypeormRepository} from 'typeorm';
-import {now} from './helper';
-import {BaseEntity} from './base.entity';
+import { DeepPartial, Repository as TypeormRepository } from 'typeorm';
+import { now } from './helper';
+import { BaseEntity } from './base.entity';
 
 export interface ObjectLiteral {
   [key: string]: any;
 }
 
-export abstract class AbstractRepository<Entity extends BaseEntity> extends TypeormRepository<Entity> {
+export abstract class AbstractRepository<
+  Entity extends BaseEntity
+> extends TypeormRepository<Entity> {
   get tableName() {
     return this.metadata.tableName;
   }
@@ -14,7 +16,7 @@ export abstract class AbstractRepository<Entity extends BaseEntity> extends Type
   async findById(id: string | number): Promise<Entity> {
     id = id.toString();
     return this.findOne({
-      where: {id},
+      where: { id },
     });
   }
 
@@ -33,8 +35,9 @@ export abstract class AbstractRepository<Entity extends BaseEntity> extends Type
   //     return this.edit(o);
   // }
 
-  async add<T extends DeepPartial<Entity>>(entityLike: T & { id? }): Promise<Entity> {
-
+  async add<T extends DeepPartial<Entity>>(
+    entityLike: T & { id? },
+  ): Promise<Entity> {
     const entity = {
       ...entityLike,
       updateTime: now(),
@@ -49,7 +52,9 @@ export abstract class AbstractRepository<Entity extends BaseEntity> extends Type
     // return this.create(entityLike);
   }
 
-  async edit<T extends DeepPartial<Entity>>(entityLike: T & { id? }): Promise<Entity> {
+  async edit<T extends DeepPartial<Entity>>(
+    entityLike: T & { id? },
+  ): Promise<Entity> {
     const entity = {
       ...entityLike,
       updateTime: now(),

@@ -1,5 +1,5 @@
 import * as config from 'config';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 export function now() {
   return Math.ceil(new Date().getTime() / 1000);
@@ -26,7 +26,6 @@ export function randomString(length: number, chars: string = ''): string {
     str += s[Math.floor(Math.random() * s.length)];
   }
   return str;
-
 }
 
 export function formatList(nodes, total, offset, limit) {
@@ -53,7 +52,7 @@ export function extractColumn<T>(arr: T[], column: keyof T) {
     return [];
   }
   const r = [];
-  arr.forEach((x) => {
+  arr.forEach(x => {
     if (x[column] !== undefined) {
       r.push(x[column]);
     }
@@ -62,9 +61,9 @@ export function extractColumn<T>(arr: T[], column: keyof T) {
 }
 
 export function shuffle<T>(array: Array<T>): Array<T> {
-
   let currentIndex = array.length;
-  let temporaryValue: T = null, randomIndex = 0;
+  let temporaryValue: T = null,
+    randomIndex = 0;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
@@ -79,7 +78,6 @@ export function shuffle<T>(array: Array<T>): Array<T> {
   }
 
   return array;
-
 }
 
 export function range(start = 0, length = 1, step = 1): number[] {

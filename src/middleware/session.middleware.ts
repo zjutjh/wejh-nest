@@ -1,5 +1,5 @@
-import {MiddlewareFunction} from '@nestjs/common';
-import {createNamespace} from 'cls-hooked';
+import { MiddlewareFunction } from '@nestjs/common';
+import { createNamespace } from 'cls-hooked';
 
 export class SessionMiddleware {
   resolve(...args: any[]): MiddlewareFunction {

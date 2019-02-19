@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as R from 'ioredis';
 import * as config from 'config';
 
@@ -11,9 +11,9 @@ export class RedisService {
 
   constructor() {
     this.config = {
-      port: config.get('redis').port,          // Redis port
-      host: config.get('redis').host,   // Redis host
-      family: 4,           // 4 (IPv4) or 6 (IPv6)
+      port: config.get('redis').port, // Redis port
+      host: config.get('redis').host, // Redis host
+      family: 4, // 4 (IPv4) or 6 (IPv6)
       // password: 'auth',
       db: 0,
     };
