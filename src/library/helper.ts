@@ -94,30 +94,37 @@ export function range(start = 0, length = 1, step = 1): number[] {
   return result;
 }
 
-export function getApiUrl(key: string, isExt?: boolean) {
+export function getApiUrl(key: string, isExt?: boolean): string {
   const configs = config.get<Map<string, any>>('api');
   if (!isExt) {
     isExt = process.env.API_EXT === 'true';
   }
-  const route = configs.get(key);
+  const route: {
+    api: string;
+    ext: string;
+  } = configs.get(key);
   if (!route) {
-    return false;
+    return '';
   }
   const compatible = process.env.API_COMPATIBLE === 'true';
-  if (Array.isArray(route)) {
+  if (typeof route === 'object') {
     if (compatible) {
       return configs.get('compatibleURL') + encodeURI(route.api);
     }
     return isExt ? route.ext : route.api;
   }
   let url: string = '';
+  const prefix: {
+    ext: string;
+    api: string;
+  } = configs.get('prefix');
   if (isExt) {
-    url = configs.get('prefix').ext + route;
+    url = prefix.ext + route;
   } else {
-    url = config.get('prefix').api + route;
+    url = prefix.api + route;
   }
   if (compatible) {
-    url = config.get('compatibleURL') + encodeURI(config.prefix.api + route);
+    url = config.get('compatibleURL') + encodeURI(prefix.api + route);
   }
   return url;
 }

@@ -10,9 +10,13 @@ export class RedisService {
   private pools: Redis[] = [];
 
   constructor() {
+    const redisConfig: {
+      host: string;
+      port: number;
+    } = config.get('redis')
     this.config = {
-      port: config.get('redis').port, // Redis port
-      host: config.get('redis').host, // Redis host
+      port: redisConfig.port, // Redis port
+      host: redisConfig.host, // Redis host
       family: 4, // 4 (IPv4) or 6 (IPv6)
       // password: 'auth',
       db: 0,

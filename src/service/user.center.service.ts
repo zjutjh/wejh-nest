@@ -8,7 +8,7 @@ export class UserCenterService {
     if (password.includes('../')) {
       return false;
     }
-    const url = getApiUrl('jh.user');
+    const url: string = getApiUrl('jh.user');
 
     const data = {
       app: 'passport',
@@ -18,9 +18,9 @@ export class UserCenterService {
     };
     // tslint:disable-next-line
     console.log(url);
-    // const res = await request.get(url, {
-    //     formData: data,
-    // });
-    // console.log(res);
+    return await request.get(url, {
+      qs: data,
+      json: true,
+    });
   }
 }

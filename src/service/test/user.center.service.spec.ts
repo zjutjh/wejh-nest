@@ -18,9 +18,10 @@ describe('user center unit test ', () => {
   });
 
   it('/GET /', async () => {
-    // tslint:disable-next-line
-    console.log(
-      await userCenterService.checkJHPassport('200703090222', 'q1w2e3r4'),
+    const res = await userCenterService.checkJHPassport(
+      '200703090222',
+      'q1w2e3r4',
     );
+    expect(res.state).toBe('success');
   });
 });
