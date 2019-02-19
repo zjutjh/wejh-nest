@@ -1,8 +1,8 @@
-import {Test} from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 
-import {INestApplication} from '@nestjs/common';
-import {AppModule} from '../../app.module';
-import {UserCenterService} from '../user.center.service';
+import { INestApplication } from '@nestjs/common';
+import { AppModule } from '../../app.module';
+import { UserCenterService } from '../user.center.service';
 
 describe('user center unit test ', () => {
   let app: INestApplication;
@@ -19,6 +19,8 @@ describe('user center unit test ', () => {
 
   it('/GET /', async () => {
     // tslint:disable-next-line
-    console.log(await userCenterService.checkJHPassport('200703090222', 'q1w2e3r4'));
+    console.log(
+      await userCenterService.checkJHPassport('200703090222', 'q1w2e3r4'),
+    );
   });
 });

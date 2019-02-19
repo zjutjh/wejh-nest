@@ -1,17 +1,22 @@
-import {Logger, MiddlewareConsumer, Module, NestModule} from '@nestjs/common';
-import {glob} from 'glob';
-import {GqlModuleOptions, GraphQLModule} from '@nestjs/graphql';
-import {join} from 'path';
-import {RedisModule} from './library/redis/redis.module';
-import {AuthMiddleware} from './middleware/auth.middleware';
-import {SessionMiddleware} from './middleware/session.middleware';
-import {addCatchUndefinedToSchema, addErrorLoggingToSchema} from 'graphql-tools';
-import {TypeOrmModule} from '@nestjs/typeorm';
+import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { glob } from 'glob';
+import { GqlModuleOptions, GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
+import { RedisModule } from './library/redis/redis.module';
+import { AuthMiddleware } from './middleware/auth.middleware';
+import { SessionMiddleware } from './middleware/session.middleware';
+import {
+  addCatchUndefinedToSchema,
+  addErrorLoggingToSchema,
+} from 'graphql-tools';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import * as config from 'config';
 
 function loadClass(path: string | string[]) {
   if (!Array.isArray(path)) {
-    const classes = glob.sync(__dirname + `/${path}/*.{ts,js}`) as Array<string>;
+    const classes = glob.sync(__dirname + `/${path}/*.{ts,js}`) as Array<
+      string
+    >;
     // console.log(classes);
     return classes.reduce((result, c) => {
       result.push(...Object.values(require(c)));
@@ -25,7 +30,6 @@ function loadClass(path: string | string[]) {
     // console.log(res);
     return res;
   }
-
 }
 
 // function loadRepository(path: string) {
@@ -47,7 +51,7 @@ const graphqlConfig: GqlModuleOptions = {
     path: join(process.cwd(), 'src/graphql.schema.ts'),
     outputAs: 'interface',
   },
-  transformSchema: (schema) => {
+  transformSchema: schema => {
     addCatchUndefinedToSchema(schema);
     addErrorLoggingToSchema(schema, Logger);
     return schema;
@@ -60,30 +64,38 @@ const graphqlConfig: GqlModuleOptions = {
   //     String: () => 'test'
   // }
 };
+const dbConfig: {
+  host: string;
+  port: number;
+  user: string;
+  password: string;
+  database: string;
+} = config.get('db');
 const DatabaseModule = TypeOrmModule.forRoot({
   type: 'mysql',
-  host: config.get('db').host,
-  port: config.get('db').port,
-  username: config.get('db').user,
-  password: config.get('db').password,
-  database: config.get('db').database,
+  host: dbConfig.host,
+  port: dbConfig.port,
+  username: dbConfig.user,
+  password: dbConfig.password,
+  database: dbConfig.database,
   charset: 'utf8mb4',
   synchronize: true, // process.env.NODE_ENV !== 'production',
   // logging: true,
-  entities: [
-    __dirname + '/entity/*.entity{.js,.ts}',
-  ],
+  entities: [__dirname + '/entity/*.entity{.js,.ts}'],
 });
 
 @Module({
-  imports: [DatabaseModule, TypeOrmModule.forFeature(loadClass(['entity', 'repository'])), GraphQLModule.forRoot(graphqlConfig), RedisModule],
+  imports: [
+    DatabaseModule,
+    TypeOrmModule.forFeature(loadClass(['entity', 'repository'])),
+    GraphQLModule.forRoot(graphqlConfig),
+    RedisModule,
+  ],
   providers: loadClass(['service', 'graphql', 'resolver']),
   // exports: loadClass('service')
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(SessionMiddleware, AuthMiddleware)
-      .forRoutes('*');
+    consumer.apply(SessionMiddleware, AuthMiddleware).forRoutes('*');
   }
 }

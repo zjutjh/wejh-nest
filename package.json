@@ -45,6 +45,7 @@
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
     "rxjs": "^6.0.0",
+    "tslint-plugin-prettier": "^2.0.1",
     "typeorm": "^0.2.13",
     "typescript": "^3.3.3"
   },
