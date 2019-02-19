@@ -73,7 +73,7 @@ const DatabaseModule = TypeOrmModule.forRoot({
     entities: [
         __dirname + '/entity/*.entity{.js,.ts}',
     ],
-});
+}); 
 
 @Module({
     imports: [DatabaseModule, TypeOrmModule.forFeature(loadClass(['entity', 'repository'])), GraphQLModule.forRoot(graphqlConfig), RedisModule],
