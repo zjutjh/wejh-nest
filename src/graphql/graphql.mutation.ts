@@ -4,11 +4,11 @@ import {getNamespace} from 'cls-hooked';
 @Mutation()
 export class GraphqlMutation {
 
-    constructor() {
-    }
+  constructor() {
+  }
 
-    private get user() {
-        const session = getNamespace('session');
-        return session.get('user');
-    }
+  private get user() {
+    const session = getNamespace('session');
+    return session.get('user');
+  }
 }

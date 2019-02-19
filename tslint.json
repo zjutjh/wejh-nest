@@ -12,7 +12,11 @@
       true,
       "single"
     ],
-    "indent": [true, "spaces", 2],
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
     "member-access": [
       false
     ],

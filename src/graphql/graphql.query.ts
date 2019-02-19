@@ -7,11 +7,11 @@ import {InjectRepository} from '@nestjs/typeorm';
 
 @Query()
 export class GraphqlQuery {
-    constructor() {
-    }
+  constructor() {
+  }
 
-    private get user() {
-        const session = getNamespace('session');
-        return session.get('user');
-    }
+  private get user() {
+    const session = getNamespace('session');
+    return session.get('user');
+  }
 }
