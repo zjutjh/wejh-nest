@@ -6,7 +6,7 @@ import { tap } from 'rxjs/operators';
 export class LoggingInterceptor implements NestInterceptor {
     intercept(
         context: ExecutionContext,
-        call$: Observable<any>
+        call$: Observable<any>,
     ): Observable<any> {
         const now = Date.now();
         // const req = context.getArgs();
@@ -17,8 +17,8 @@ export class LoggingInterceptor implements NestInterceptor {
                 // params: req.params,
                 // query: req.query,
                 // body: req.body,
-                duration: `${Date.now() - now}ms`
-            }), 'Request'))
+                duration: `${Date.now() - now}ms`,
+            }), 'Request')),
         );
     }
 }

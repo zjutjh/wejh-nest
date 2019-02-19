@@ -14,7 +14,7 @@ export abstract class AbstractRepository<Entity extends BaseEntity> extends Type
     async findById(id: string | number ): Promise<Entity> {
         id = id.toString();
         return this.findOne({
-            where: { id }
+            where: { id },
         });
     }
 
@@ -38,13 +38,13 @@ export abstract class AbstractRepository<Entity extends BaseEntity> extends Type
         const entity = {
             ...entityLike,
             updateTime: now(),
-            createTime: now()
+            createTime: now(),
         };
         entity.id = entityLike.id;
         // Object.defineProperty(entityLike, 'createTime', { value: now() });
         // Object.defineProperty(entityLike, 'updateTime', { value: now() });
         await this.save(entity);
-        const id = entity['id'];
+        const id = entity.id;
         return this.findById(id);
         // return this.create(entityLike);
     }
@@ -52,12 +52,12 @@ export abstract class AbstractRepository<Entity extends BaseEntity> extends Type
     async edit<T extends DeepPartial<Entity>>(entityLike: T & { id? }): Promise<Entity> {
         const entity = {
             ...entityLike,
-            updateTime: now()
+            updateTime: now(),
             // createTime: now()
         };
         // Object.defineProperty(entityLike, 'updateTime', { value: now() });
         await this.save(entity);
-        const id = entity['id'];
+        const id = entity.id;
         return this.findById(id);
     }
 }

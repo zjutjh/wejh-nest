@@ -8,7 +8,7 @@ export class SessionMiddleware {
             session.run(() => {
                 session.set('context', {
                     req,
-                    res
+                    res,
                 });
                 next();
             });

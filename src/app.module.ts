@@ -45,7 +45,7 @@ const graphqlConfig: GqlModuleOptions = {
     installSubscriptionHandlers: true,
     definitions: {
         path: join(process.cwd(), 'src/graphql.schema.ts'),
-        outputAs: 'interface'
+        outputAs: 'interface',
     },
     transformSchema: (schema) => {
         addCatchUndefinedToSchema(schema);
@@ -53,8 +53,8 @@ const graphqlConfig: GqlModuleOptions = {
         return schema;
     },
     resolverValidationOptions: {
-        requireResolversForResolveType: false
-    }
+        requireResolversForResolveType: false,
+    },
     // mockEntireSchema: true,
     // mocks: {
     //     String: () => 'test'
@@ -62,17 +62,17 @@ const graphqlConfig: GqlModuleOptions = {
 };
 const DatabaseModule = TypeOrmModule.forRoot({
     type: 'mysql',
-    host: config.get('db')['host'],
-    port: config.get('db')['port'],
-    username: config.get('db')['user'],
-    password: config.get('db')['password'],
-    database: config.get('db')['database'],
+    host: config.get('db').host,
+    port: config.get('db').port,
+    username: config.get('db').user,
+    password: config.get('db').password,
+    database: config.get('db').database,
     charset: 'utf8mb4',
     synchronize: true, // process.env.NODE_ENV !== 'production',
     // logging: true,
     entities: [
-        __dirname + '/entity/*.entity{.js,.ts}'
-    ]
+        __dirname + '/entity/*.entity{.js,.ts}',
+    ],
 });
 
 @Module({

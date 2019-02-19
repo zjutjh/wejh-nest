@@ -13,7 +13,7 @@ export class AuthMiddleware implements NestMiddleware {
             let user = null;
             let method = '';
 
-            let check = true;
+            const check = true;
             try {
                 const graphqlObject = gql(`${req.body.query}`);
                 // console.log(graphqlObject);
@@ -25,7 +25,7 @@ export class AuthMiddleware implements NestMiddleware {
             try {
 
                 user = jwt.verify(token, config.get('secret'));
-                const userId = user['id'];
+                const userId = user.id;
                 const session = getNamespace('session');
                 // const u = await this.userService.findById(userId);
                 await session.set('user', user);

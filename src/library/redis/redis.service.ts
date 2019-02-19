@@ -11,11 +11,11 @@ export class RedisService {
 
     constructor() {
         this.config = {
-            port: config.get('redis')['port'],          // Redis port
-            host: config.get('redis')['host'],   // Redis host
+            port: config.get('redis').port,          // Redis port
+            host: config.get('redis').host,   // Redis host
             family: 4,           // 4 (IPv4) or 6 (IPv6)
             // password: 'auth',
-            db: 0
+            db: 0,
         };
     }
 

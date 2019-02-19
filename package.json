@@ -19,7 +19,7 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.tx": [
+    "*.ts": [
       "npm run lint"
     ]
   },

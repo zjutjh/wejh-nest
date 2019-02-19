@@ -5,12 +5,10 @@ import {getNamespace} from 'cls-hooked';
 import {MoreThan} from 'typeorm';
 import {InjectRepository} from '@nestjs/typeorm';
 
-
 @Query()
 export class GraphqlQuery {
     constructor() {
     }
-
 
     private get user() {
         const session = getNamespace('session');

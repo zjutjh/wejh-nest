@@ -1,6 +1,6 @@
 import * as request from 'request-promise-native';
-import {getApiUrl} from "../library/helper";
-import {Injectable} from "@nestjs/common";
+import {getApiUrl} from '../library/helper';
+import {Injectable} from '@nestjs/common';
 
 @Injectable()
 export class UserCenterService {
@@ -14,8 +14,9 @@ export class UserCenterService {
             app: 'passport',
             action: 'login',
             passport: username,
-            password
+            password,
         };
+        // tslint:disable-next-line
         console.log(url);
         // const res = await request.get(url, {
         //     formData: data,

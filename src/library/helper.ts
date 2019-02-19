@@ -1,5 +1,5 @@
 import * as config from 'config';
-import {map} from "rxjs/operators";
+import {map} from 'rxjs/operators';
 
 export function now() {
     return Math.ceil(new Date().getTime() / 1000);
@@ -43,8 +43,8 @@ export function formatList(nodes, total, offset, limit) {
             hasPreviousPage: offset - limit > 0,
             startCursor: '0',
             endCursor: total.toString(),
-            current
-        }
+            current,
+        },
     };
 }
 
@@ -108,18 +108,18 @@ export function getApiUrl(key: string, isExt?: boolean) {
     const compatible = process.env.API_COMPATIBLE === 'true';
     if (Array.isArray(route)) {
         if (compatible) {
-            return configs.get('compatibleURL') + encodeURI(route['api']);
+            return configs.get('compatibleURL') + encodeURI(route.api);
         }
-        return isExt ? route['ext'] : route['api'];
+        return isExt ? route.ext : route.api;
     }
     let url: string = '';
     if (isExt) {
-        url = configs.get('prefix')['ext'] + route;
+        url = configs.get('prefix').ext + route;
     } else {
-        url = config.get('prefix')['api'] + route;
+        url = config.get('prefix').api + route;
     }
     if (compatible) {
-        url = config.get('compatibleURL') + encodeURI(config['prefix']['api'] + route);
+        url = config.get('compatibleURL') + encodeURI(config.prefix.api + route);
     }
     return url;
 }
